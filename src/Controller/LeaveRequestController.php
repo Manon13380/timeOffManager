@@ -51,9 +51,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
         
         if ($user) {
             $userRoles = $user->getRoles();
+            if (in_array('ROLE_ADMIN', $userRoles)) {
+                $historical = $this->entityManager->getRepository(LeaveRequest::class)->findAll();
+            }
+            else{ 
             $UserByMail = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $user->getUserIdentifier()]);
             $UserId = $UserByMail->getId();
             $historical = $this->entityManager->getRepository(LeaveRequest::class)->findAllByUserId($UserId);
+        }
+           
         } else {
             $userRoles = [];
             $historical = [];
