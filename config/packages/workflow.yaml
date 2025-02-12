@@ -1,0 +1,22 @@
+framework:
+  workflows:
+    leave_request:
+      type: state_machine
+      audit_trail:
+        enabled: "%kernel.debug%"
+      marking_store:
+        type: "method"
+        property: "statusAsString"
+      supports: [App\Entity\LeaveRequest]
+      initial_marking: draft
+      places: [draft, submitted, approved, rejected]
+      transitions:
+        send:
+          from: draft
+          to: submitted
+        accept:  
+          from: submitted
+          to: approved
+        reject:
+          from: submitted
+          to: rejected

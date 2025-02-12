@@ -1,0 +1,13 @@
+{% extends '@email/default/notification/body.html.twig' %}
+{% block content %}
+  Demandeur : {{ leaveRequest.userName }}<br />
+  <p> Demande de congé : du
+      {{ leaveRequest.startDate }} au {{ leaveRequest.endDate }}
+  </p>
+  <p> Raison : {{ leaveRequest.reason }} </p>
+{% endblock %}
+{% block action %}
+  <spacer size="16"></spacer>
+  <button href="">Accept</button>
+  <button href="">Reject</button>
+{% endblock %}

@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
-use App\Repository\LeaveRequestRepository;
 use Doctrine\DBAL\Types\Types;
+use App\Entity\Enum\StatusEnum;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\LeaveRequestRepository;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: LeaveRequestRepository::class)]
@@ -28,8 +29,8 @@ class LeaveRequest
     #[ORM\Column(length: 255)]
     private ?string $reason = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $status = null;
+    #[ORM\Column(length: 255, options: ['default' => StatusEnum::Draft->value])]
+    private ?StatusEnum $status = StatusEnum::Draft;
 
     #[ORM\ManyToOne(inversedBy: 'leaveRequests')]
     #[ORM\JoinColumn(nullable: false)]
@@ -76,12 +77,12 @@ class LeaveRequest
         return $this;
     }
 
-    public function getStatus(): ?string
+    public function getStatus(): ?StatusEnum
     {
         return $this->status;
     }
 
-    public function setStatus(string $status): static
+    public function setStatus(StatusEnum $status): static
     {
         $this->status = $status;
 
@@ -98,5 +99,13 @@ class LeaveRequest
         $this->userName = $userName;
 
         return $this;
+    }
+    public function getStatusAsString(): string
+    {
+     return $this->status->value;
+    }
+    public function setStatusAsString(string $status): void
+    {
+     $this->status = StatusEnum::from($status);
     }
 }

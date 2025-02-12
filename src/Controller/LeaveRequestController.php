@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Entity\LeaveRequest;
+use App\Entity\Enum\StatusEnum;
 use App\Form\LeaveRequestFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -31,7 +32,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $leaveRequests->setUserName($user);
-            $leaveRequests->setStatus('SUBMITTED');
             $this->entityManager->persist($leaveRequests);
             $this->entityManager->flush();
             return $this->redirectToRoute('app_historical');
