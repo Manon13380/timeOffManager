@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Demande de Congé{% endblock %}
+
+{% block body %}
+<div class="min-h-screen flex items-center justify-center bg-gray-100 py-10">
+    <div class="w-full max-w-md p-8 bg-white rounded-2xl shadow-xl">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Faire une demande de congé</h1>
+
+        {{ form_start(form, {'attr': {'class': 'space-y-5'}}) }}
+
+        <!-- Date de début -->
+        <div>
+            {{ form_label(form.startDate, 'Date de début', {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+            {{ form_widget(form.startDate, {'attr': {'class': 'mt-1 w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500'}}) }}
+            {{ form_errors(form.startDate, {'attr': {'class': 'text-red-500 text-sm mt-1'}}) }}
+        </div>
+
+        <!-- Date de fin -->
+        <div>
+            {{ form_label(form.endDate, 'Date de fin', {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+            {{ form_widget(form.endDate, {'attr': {'class': 'mt-1 w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500'}}) }}
+            {{ form_errors(form.endDate, {'attr': {'class': 'text-red-500 text-sm mt-1'}}) }}
+        </div>
+
+        <!-- Raison -->
+        <div>
+            {{ form_label(form.reason, 'Raison du congé', {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+            {{ form_widget(form.reason, {'attr': {'class': 'mt-1 w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500', 'rows': 4, 'placeholder': 'Expliquez la raison de votre demande...'}}) }}
+            {{ form_errors(form.reason, {'attr': {'class': 'text-red-500 text-sm mt-1'}}) }}
+        </div>
+
+        <!-- Bouton d'envoi -->
+        <div>
+            <button type="submit" class="w-full flex justify-center items-center px-4 py-2.5 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all transform hover:-translate-y-0.5">
+                Envoyer la demande
+            </button>
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+</div>
+{% endblock %}

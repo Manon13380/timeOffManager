@@ -8,10 +8,31 @@
         {% endblock %}
 
         {% block javascripts %}
+        <script src="https://cdn.tailwindcss.com"></script>
+           
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <header class="bg-gradient-to-r from-indigo-600 to-purple-600  text-white">
+            <div class="container mx-auto flex items-center justify-between p-4">
+                <h1 class="text-2xl font-bold">Time Off Manager</h1>
+                {% if app.user %}
+                <nav>
+                    <ul class="flex space-x-4">
+                        <li><a href="{{ path('app_leave_request') }}" class="hover:text-blue-300">Demande de Congés</a></li>
+                        <li><a href="{{path('app_historical')}}" class="hover:text-blue-300">Historique</a></li>
+                        {% if 'ROLE_ADMIN' in roles %}
+                        <li><a href="{{ path('admin') }}" class="hover:text-blue-300">Admin</a></li>
+                        {% endif %}
+                        <li><a href="{{ path('app_logout') }}" class="hover:text-blue-300">Déconnexion</a></li>
+                    </ul>
+                </nav>
+                {% endif %}
+            </div>
+        </header>
+        <main>
+            {% block body %}{% endblock %}
+        </main>
     </body>
 </html>

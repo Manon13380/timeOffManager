@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Historique {% endblock %}
+
+{% block body %}
+<div class="container mx-auto p-4 bg-gray-100 min-h-screen">
+    <h1 class="text-2xl font-bold mb-4 text-center">Historique des Demandes</h1>
+    {% if historical is empty %}<p class="text-center">Aucune demande trouvee.</p>
+    {% else %}
+    <table class="min-w-full bg-white border border-gray-200">
+        <thead>
+            <tr class="bg-gradient-to-r from-indigo-600 to-purple-600 uppercase text-sm leading-normal">  
+                <th class="py-3 px-6 text-left">Type de Demande</th>
+                <th class="py-3 px-6 text-left">Date de Début</th>
+                <th class="py-3 px-6 text-left">Date de Fin</th>
+                <th class="py-3 px-6 text-left">Statut</th>
+            </tr>
+        </thead>
+        <tbody class="text-gray-600 text-sm font-light">
+            {% for element in historical %}
+               <tr class="border-b border-gray-200 hover:bg-gray-100">
+                <td class="py-3 px-6">{{ element.reason }}</td>
+                <td class="py-3 px-6">{{ element.startDate|date('d-m-y') }}</td>
+                <td class="py-3 px-6">{{ element.endDate|date('d-m-y') }}</td>
+                <td class="py-3 px-6">{{ element.status }}</td>
+                </tr>    
+            {% endfor %}       
+        </tbody>
+    </table>
+    {% endif %} 
+</div>
+{% endblock %}
