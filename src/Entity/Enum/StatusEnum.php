@@ -3,8 +3,8 @@
 namespace App\Entity\Enum;
 enum StatusEnum : string
 {
-    case Draft = 'Draft';
-    case Submitted = 'Submitted';
-    case Approved = 'Approved';
-    case Rejected = 'Rejected';
+    case Draft = 'draft';
+    case Submitted = 'submitted';
+    case Approved = 'approved';
+    case Rejected = 'rejected';
 }

@@ -6,11 +6,13 @@ use App\Entity\User;
 use App\Entity\LeaveRequest;
 use App\Entity\Enum\StatusEnum;
 use App\Form\LeaveRequestFormType;
+use App\Message\LeaveRequestMessage;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
  class LeaveRequestController extends AbstractController
@@ -18,7 +20,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
     public function __construct(private readonly EntityManagerInterface $entityManager) { }
 
     #[Route('/leaveRequest', name: 'app_leave_request')]
-    public function index(Request $request, Security $security): Response
+    public function index(Request $request, Security $security, MessageBusInterface $bus): Response
     {
         $user = $security->getUser();
 
@@ -27,13 +29,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
         } else {
             $userRoles = [];
         }
-        $leaveRequests = new LeaveRequest();
-        $form = $this->createForm(LeaveRequestFormType::class, $leaveRequests);
+        $leaveRequest = new LeaveRequest();
+        $form = $this->createForm(LeaveRequestFormType::class, $leaveRequest);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $leaveRequests->setUserName($user);
-            $this->entityManager->persist($leaveRequests);
+            $leaveRequest->setUserName($user);
+            $this->entityManager->persist($leaveRequest);
             $this->entityManager->flush();
+            $bus->dispatch(new LeaveRequestMessage($leaveRequest->getId() ));
             return $this->redirectToRoute('app_historical');
         }
         
