@@ -51,7 +51,7 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linktoRoute('Back to the website', 'fas fa-home', 'app_leave_request');
+        yield MenuItem::linktoRoute('Back to the website', 'fas fa-home', 'app_historical');
         yield MenuItem::linkToCrud('Users', 'fa fa-user', User::class);
         yield MenuItem::linkToCrud('Leave Requests', 'fas fa-list', LeaveRequest::class);
     }

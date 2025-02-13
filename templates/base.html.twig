@@ -20,11 +20,12 @@
                 {% if app.user %}
                 <nav>
                     <ul class="flex space-x-4">
-                        <li><a href="{{ path('app_leave_request') }}" class="hover:text-blue-300">Demande de Congés</a></li>
-                        <li><a href="{{path('app_historical')}}" class="hover:text-blue-300">Historique</a></li>
                         {% if 'ROLE_ADMIN' in roles %}
                         <li><a href="{{ path('admin') }}" class="hover:text-blue-300">Admin</a></li>
+                        {% else %}
+                        <li><a href="{{ path('app_leave_request') }}" class="hover:text-blue-300">Demande de Congés</a></li>
                         {% endif %}
+                        <li><a href="{{path('app_historical')}}" class="hover:text-blue-300">Historique</a></li>
                         <li><a href="{{ path('app_logout') }}" class="hover:text-blue-300">Déconnexion</a></li>
                     </ul>
                 </nav>

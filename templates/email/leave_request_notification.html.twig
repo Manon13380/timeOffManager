@@ -2,12 +2,12 @@
 {% block content %}
   Demandeur : {{ leaveRequest.userName }}<br />
   <p> Demande de congé : du
-      {{ leaveRequest.startDate }} au {{ leaveRequest.endDate }}
+      {{ leaveRequest.startDate | date('d/m/Y') }} au {{ leaveRequest.endDate | date('d/m/Y') }}
   </p>
   <p> Raison : {{ leaveRequest.reason }} </p>
 {% endblock %}
 {% block action %}
   <spacer size="16"></spacer>
-  <button href="">Accept</button>
-  <button href="">Reject</button>
+  <button href="{{ url('review_leave_request', { id: leaveRequest.id }) }}">Accept</button>
+  <button href="{{ url('review_leave_request', { id: leaveRequest.id, reject: true }) }}">Reject</button>
 {% endblock %}
