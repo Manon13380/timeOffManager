@@ -1,0 +1,17 @@
+.status[data-status="draft"] {
+    color: yellow;
+    
+  }
+  
+  .status[data-status="submitted"] {
+    color: orange;
+  }
+  
+  .status[data-status="approved"] {
+    color: green;
+  }
+  
+  .status[data-status="rejected"] {
+    color: red;
+  }
+  
